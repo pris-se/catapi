@@ -1,9 +1,8 @@
 import React from "react";
-import {} from "../store";
 import Breeds from "./Breeds";
 import Search from "./Search";
 
-const Gallery = ({ data, status, breeds, searchFor }) => {
+const Gallery = ({ data, status, breeds, searchData, options, handleInfo }) => {
   const image = data.map((img, idx) => (
     <div key={img.id}>
       <img src={img.url} alt="Cat" key={img.id} />
@@ -15,8 +14,8 @@ const Gallery = ({ data, status, breeds, searchFor }) => {
 
   return (
     <>
-      {status === "SEARCH" && <Search data={data} breeds={breeds} searchFor={searchFor} />}
-      {status === "BREEDS" && <Breeds data={data} breeds={breeds} />}
+      {status === "SEARCH" && breeds && searchData.searched && <Search handleInfo={handleInfo} breeds={breeds} searchData={searchData} />}
+      {status === "BREEDS" && breeds && <Breeds breeds={breeds} options={options} handleInfo={handleInfo} />}
       {status === "GALLERY" && <div className="gallery">{image}</div>}
     </>
   );

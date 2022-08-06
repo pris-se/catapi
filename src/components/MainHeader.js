@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import {} from "../store";
 
-export default function MainHeader({ breeds, searchByName, setStatus }) {
-  let [breedName, setBreedName] = useState("");
+export default function MainHeader({ searchByName, setStatus }) {
+  let [searchFor, setSearchFor] = useState("");
 
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    if (breedName) {
-      searchByName(breedName);
+    if (searchFor.length > 0) {
+      searchByName(searchFor);
       setStatus("SEARCH");
+      setSearchFor("");
     } else return;
   };
   return (
@@ -20,21 +21,21 @@ export default function MainHeader({ breeds, searchByName, setStatus }) {
           type="search"
           name="q"
           placeholder="Search for breeds by name"
-          value={breedName}
-          onInput={(e) => setBreedName(e.target.value.trim())}
+          value={searchFor}
+          onInput={(e) => setSearchFor(e.target.value.trim())}
         />
         <button className="main__search-btn" type="submit">
           <img src="./img/search.png" alt="search" />
         </button>
       </form>
       <div className="main__icons">
-        <button className="main__icon" type="button">
+        <button className="main__icon" type="button" onClick={() => setStatus("LIKES")}>
           <img src="./img/like.svg" alt="like" />
         </button>
-        <button className="main__icon" type="button">
+        <button className="main__icon" type="button" onClick={() => setStatus("FAVOURITES")}>
           <img src="./img/favourite.svg" alt="favourite" />
         </button>
-        <button className="main__icon" type="button">
+        <button className="main__icon" type="button" onClick={() => setStatus("DISLIKES")}>
           <img src="./img/dislike.svg" alt="dislike" />
         </button>
       </div>

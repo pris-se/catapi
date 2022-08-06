@@ -1,11 +1,19 @@
 import React from "react";
 
-export default function Search({ breeds, data, searchFor }) {
-  const searched = data.map((img, idx) => (
-    <div key={img.id}>
-      <img src={img.url} alt="Cat" key={img.id} />
-      <button className="breed-name" key={idx}>
-        {breeds.filter((e) => e.id === searchFor.id)[0].name}
+export default function Search({ breeds, searchData, handleInfo }) {
+  const searchedBreeds = breeds.filter((b) => searchData.searched.includes(b.id));
+
+  const searched = searchedBreeds.map((breed) => (
+    <div key={breed.id}>
+      <img src={breed?.image?.url} alt={breed.name} key={breed.id} />
+      <button
+        className="breed-name"
+        key={breed?.image?.id}
+        onClick={() => {
+          handleInfo(breed);
+        }}
+      >
+        {breed.name}
       </button>
     </div>
   ));
@@ -13,9 +21,10 @@ export default function Search({ breeds, data, searchFor }) {
   return (
     <>
       <p className="search-result">
-        Search results for: <span>{searchFor.req}</span>
+        Search results for: <span>{searchData.req}</span>
       </p>
-      <div className="gallery">{searched}</div>
+
+      {searched && <div className="gallery">{searched}</div>}
     </>
   );
 }

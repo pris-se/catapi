@@ -66,7 +66,7 @@ export default function Filter({ breeds, getData }) {
         <div className="filter__block">
           <h4 className="filter__name">BREED</h4>
           <select className="filter__select" value={filter.breed_ids} onChange={(e) => setFilter({ ...filter, breed_ids: e.target.value })}>
-            <option value="none">None</option>
+            <option value="">None</option>
             {breedOption}
           </select>
         </div>

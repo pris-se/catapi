@@ -12,7 +12,7 @@ export default function Menu({ status, setStatus }) {
         <h2 className="menu__secondary-title">Lets start using The Cat API</h2>
         <section className="menu__links">
           <div className={status === "VOTTING" ? "menu__link active" : "menu__link"} onClick={() => setStatus("VOTTING")}>
-            <img className="menu__link--col-1" src="./img/vote-table.png" alt="VOTING" />
+            <img className="menu__link--col-1" src="/img/vote-table.png" alt="VOTING" />
             <h3 className="menu__link-name">VOTING</h3>
           </div>
           <div className={status === "BREEDS" ? "menu__link active" : "menu__link"} onClick={() => setStatus("BREEDS")}>
