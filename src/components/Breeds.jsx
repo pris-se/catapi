@@ -1,14 +1,19 @@
 import React from "react";
+import { useGetBreedQuery } from "../store/petApi";
+import { Loader } from "./Loader";
+import { Error } from "./Error";
 
-export default function Breeds({ breeds, options, handleInfo }) {
-  const filteredBreeds = breeds.slice(0, options.limit).filter((b) => {
-    if (!options.breed_ids) {
-      return true;
-    }
-    return b.id === options.breed_ids;
-  });
+export default function Breeds({ handleInfo }) {
+  const { data, isLoading, isError } = useGetBreedQuery({ id: "?", limit: 5 });
 
-  const image = filteredBreeds.map((breed) => (
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (isError) {
+    return <Error />;
+  }
+
+  const image = data.map((breed) => (
     <div key={breed.id}>
       <img src={breed?.image?.url} alt={breed.name} key={breed.id} />
       <button

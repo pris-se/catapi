@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import {} from "../store";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { search } from "../store/mainState";
 
-export default function MainHeader({ searchByName, setStatus }) {
+export default function MainHeader() {
   let [searchFor, setSearchFor] = useState("");
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const submitHandler = (e) => {
+    const input = e.target.q.value;
     e.preventDefault();
     if (searchFor.length > 0) {
-      searchByName(searchFor);
-      setStatus("SEARCH");
+      dispatch(search(input));
       setSearchFor("");
+      navigate("/search", { replace: true });
     } else return;
   };
+
   return (
     <header className="main__header">
       <form className="main__search" onSubmit={(e) => submitHandler(e)}>
@@ -29,15 +35,24 @@ export default function MainHeader({ searchByName, setStatus }) {
         </button>
       </form>
       <div className="main__icons">
-        <button className="main__icon" type="button" onClick={() => setStatus("LIKES")}>
+        <NavLink
+          to="/likes"
+          className={({ isActive }) => (isActive ? "main__icon active" : "main__icon")}
+        >
           <img src="./img/like.svg" alt="like" />
-        </button>
-        <button className="main__icon" type="button" onClick={() => setStatus("FAVOURITES")}>
+        </NavLink>
+        <NavLink
+          to="/favourite"
+          className={({ isActive }) => (isActive ? "main__icon active" : "main__icon")}
+        >
           <img src="./img/favourite.svg" alt="favourite" />
-        </button>
-        <button className="main__icon" type="button" onClick={() => setStatus("DISLIKES")}>
+        </NavLink>
+        <NavLink
+          to="/dislikes"
+          className={({ isActive }) => (isActive ? "main__icon active" : "main__icon")}
+        >
           <img src="./img/dislike.svg" alt="dislike" />
-        </button>
+        </NavLink>
       </div>
     </header>
   );
