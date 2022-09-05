@@ -29,12 +29,12 @@ export default function Search({ handleInfo }) {
 
   const image = data?.map((breed) => (
     <div key={breed.id}>
-      <img src={breed?.url} alt={breed.name} key={breed.id} />
+      <img src={breed?.url} alt={breed?.name} key={breed?.id} />
       <button
         className="breed-name"
         key={breed?.image?.id}
         onClick={() => {
-          handleInfo(breed);
+          handleInfo(breed?.id);
         }}
       >
         {breed.name}

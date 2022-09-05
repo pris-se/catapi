@@ -14,17 +14,14 @@ export const petApi = createApi({
     baseUrl: API_URL,
     prepareHeaders: (headers) => {
       headers.set("x-api-key", API_KEY);
-      headers.set("Content-Type", "application/json");
       return headers;
     },
   }),
   tagTypes: ["Images", "Votes"],
   endpoints: (build) => ({
     getImage: build.query({
-      query: ({ limit, id }) => `images/search?limit=${limit}&breed_ids=${id}`,
-    }),
-    getBreed: build.query({
-      query: ({ id, limit }) => `breeds/${id}&limit=${limit}`,
+      query: ({ limit, breed_ids, mime_types, order, has_breeds }) =>
+        `images/search?limit=${limit}&breed_ids=${breed_ids}&mime_types=${mime_types}&order=${order}&&has_breeds=${has_breeds}`,
     }),
     getBreeds: build.query({
       query: (limit) => `breeds?limit=${limit}`,
@@ -70,12 +67,30 @@ export const petApi = createApi({
       }),
       invalidatesTags: ["Favourites"],
     }),
+    getUploads: build.query({
+      query: () => `images/?limit=50&original_filename`,
+      providesTags: ["Uploads"],
+    }),
+    uploadImage: build.mutation({
+      query: (body) => ({
+        url: `/images/upload`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Uploads"],
+    }),
+    deleteImage: build.mutation({
+      query: (id) => ({
+        url: `/images/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Uploads"],
+    }),
   }),
 });
 
 export const {
   useGetImageQuery,
-  useGetBreedQuery,
   useGetBreedsQuery,
   useSearchBreedsQuery,
   useGetVotesQuery,
@@ -84,4 +99,7 @@ export const {
   useGetFavouritesQuery,
   useAddFavouritesMutation,
   useDeleteFavouritesMutation,
+  useGetUploadsQuery,
+  useUploadImageMutation,
+  useDeleteImageMutation,
 } = petApi;

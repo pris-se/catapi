@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useLocation, Route, Routes, useNavigate } from "react-router-dom";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, Route, Routes, useNavigate, NavLink } from "react-router-dom";
+import { setBreedsFilter } from "../store/mainState";
 import { useGetBreedsQuery } from "../store/petApi";
 
 export default function MainNavbar() {
+  const dispatch = useDispatch();
+  const breedsParams = useSelector((state) => state.state.breedsFilter);
+
   const { data } = useGetBreedsQuery();
-  const [options, setOptions] = useState({
-    limits: 5,
-    breed_ids: "",
-  });
+
   let navigate = useNavigate();
   const location = useLocation();
   const limits = [5, 10, 15, 20];
@@ -25,31 +26,37 @@ export default function MainNavbar() {
     </option>
   ));
 
-  useEffect(() => {}, []);
-
   return (
     <nav className="main__navbar">
       <div className="main__aside">
-        <button className="main__back-btn" type="button" onClick={() => navigate(-1)}></button>
+        <button className="main__back-btn" type="button" onClick={() => navigate(-1)}>
+          <img src="./img/back-btn.svg" alt="Back" />
+        </button>
         <h2 className="main__title">{location.pathname.toUpperCase().slice(1)}</h2>
       </div>
       <Routes>
+        <Route
+          path="breedsinfo"
+          element={
+            <h2 className="main__title">{JSON.parse(window.localStorage.getItem("breedInfo"))}</h2>
+          }
+        />
         <Route
           path="breeds"
           element={
             <>
               <select
                 className="main__select main__select--w100"
-                value={options.breed_ids}
-                onChange={(e) => setOptions({ ...options, breed_ids: e.target.value })}
+                value={breedsParams.breed_ids}
+                onChange={(e) => dispatch(setBreedsFilter({ breed_ids: e.target.value }))}
               >
                 <option value="">All breeds</option>
                 {breedOptions}
               </select>
               <select
                 className="main__select"
-                value={options.limit}
-                onChange={(e) => setOptions({ ...options, limit: e.target.value })}
+                value={breedsParams.limit}
+                onChange={(e) => dispatch(setBreedsFilter({ limit: e.target.value }))}
               >
                 {limitOption}
               </select>
@@ -59,9 +66,14 @@ export default function MainNavbar() {
         <Route
           path="gallery"
           element={
-            <button className="main__upload-btn" type="button">
-              <img src="./img/upload.svg" alt="upload" /> UPLOAD
-            </button>
+            <>
+              <NavLink to="/uploaded" className="main__upload-btn">
+                <img src="./img/upload.svg" alt="upload" /> UPLOADED
+              </NavLink>
+              <NavLink to="/upload" className="main__upload-btn">
+                <img src="./img/upload.svg" alt="upload" /> UPLOAD
+              </NavLink>
+            </>
           }
         />
       </Routes>

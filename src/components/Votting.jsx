@@ -4,7 +4,7 @@ import { History } from "./History";
 import { Error } from "./Error";
 
 export default function Votting() {
-  const { data, isFetching, isError, refetch } = useGetImageQuery({ limit: 1, id: "" });
+  const { data, isFetching, isError, refetch } = useGetImageQuery({ limit: 1, breed_ids: "" });
   const [makeVote] = useMakeVoteMutation();
   const [addToFavourites] = useAddFavouritesMutation();
 
@@ -39,17 +39,17 @@ export default function Votting() {
               value="1"
               onClick={(e) => handleVote(e)}
             >
-              <img src="./img/like-white.svg" alt="like" />
+              <img src="./img/like.svg" alt="like" />
             </button>
             <button className="votting__button votting__button--fav" onClick={handleAddFavourites}>
-              <img src="./img/favourite-white.svg" alt="favourite" />
+              <img src="./img/favourite.svg" alt="favourite" />
             </button>
             <button
               className="votting__button votting__button--dislike"
               value="0"
               onClick={(e) => handleVote(e)}
             >
-              <img src="./img/dislike-white.svg" alt="dislike" />
+              <img src="./img/dislike.svg" alt="dislike" />
             </button>
           </div>
         </div>

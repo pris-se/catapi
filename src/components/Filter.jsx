@@ -1,15 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setGalleryFilter } from "../store/mainState";
 import { useGetBreedsQuery } from "../store/petApi";
 
 export default function Filter() {
   const { data } = useGetBreedsQuery();
+  const galleryParams = useSelector((state) => state.state.galleryFilter);
+  const dispatch = useDispatch();
 
-  let [filter, setFilter] = useState({
-    breed_ids: "",
-    limit: 5,
-    order: "Rand",
-    mime_types: "",
-  });
+  let [filter, setFilter] = useState(galleryParams);
 
   const orders = [
     { name: "Random", id: "Rand" },
@@ -45,6 +44,7 @@ export default function Filter() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(setGalleryFilter(filter));
   };
 
   return (
@@ -61,7 +61,7 @@ export default function Filter() {
           </select>
         </div>
         <div className="filter__block">
-          <h4 className="filter__name">ORDER</h4>
+          <h4 className="filter__name">TYPE</h4>
           <select
             className="filter__select"
             value={filter.mime_types}
@@ -78,7 +78,13 @@ export default function Filter() {
           <select
             className="filter__select"
             value={filter.breed_ids}
-            onChange={(e) => setFilter({ ...filter, breed_ids: e.target.value })}
+            onChange={(e) =>
+              setFilter({
+                ...filter,
+                breed_ids: e.target.value,
+                has_breeds: e.target.value ? 1 : 0,
+              })
+            }
           >
             <option value="">None</option>
             {breedOption}

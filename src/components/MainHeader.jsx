@@ -31,7 +31,7 @@ export default function MainHeader() {
           onInput={(e) => setSearchFor(e.target.value.trim())}
         />
         <button className="main__search-btn" type="submit">
-          <img src="./img/search.png" alt="search" />
+          <img src="./img/search.svg" alt="search" />
         </button>
       </form>
       <div className="main__icons">
@@ -39,19 +39,19 @@ export default function MainHeader() {
           to="/likes"
           className={({ isActive }) => (isActive ? "main__icon active" : "main__icon")}
         >
-          <img src="./img/like.svg" alt="like" />
+          <img src="./img/like-white.svg" alt="like" />
         </NavLink>
         <NavLink
           to="/favourite"
           className={({ isActive }) => (isActive ? "main__icon active" : "main__icon")}
         >
-          <img src="./img/favourite.svg" alt="favourite" />
+          <img src="./img/favourite-white.svg" alt="favourite" />
         </NavLink>
         <NavLink
           to="/dislikes"
           className={({ isActive }) => (isActive ? "main__icon active" : "main__icon")}
         >
-          <img src="./img/dislike.svg" alt="dislike" />
+          <img src="./img/dislike-white.svg" alt="dislike" />
         </NavLink>
       </div>
     </header>

@@ -34,8 +34,8 @@ export default function Menu() {
         </div>
       </header>
       <article className="menu__body">
-        <h1 className="menu__title">Hi cat lovers!</h1>
-        <h2 className="menu__subtitle">Welcome to cat social network</h2>
+        <h1 className="menu__title">Hi {API_URL === DOG_API_URL ? "dog" : "cat"} lovers!</h1>
+        <h2 className="menu__subtitle">Welcome to pet social network</h2>
         <h2 className="menu__secondary-title">Lets start searching photos</h2>
         <section className="menu__links">
           <NavLink to="/votting" className={({ isActive }) => (isActive ? "active" : null)}>

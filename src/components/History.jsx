@@ -1,15 +1,10 @@
 import React from "react";
-import { useDeleteVoteMutation, useGetVotesQuery } from "../store/petApi";
+import { useGetVotesQuery } from "../store/petApi";
 import { Loader } from "./Loader";
 import { Error } from "./Error";
 
 export const History = () => {
   const { data, isLoading, isError } = useGetVotesQuery();
-  const [deleteVote, { isLoading: isDeleting }] = useDeleteVoteMutation();
-
-  const handlerDeleteVotte = (id) => {
-    deleteVote(id);
-  };
 
   if (isLoading) {
     return <Loader />;
@@ -23,12 +18,8 @@ export const History = () => {
     return <p className="no-item">It is no votes yet</p>;
   }
 
-  if (isDeleting) {
-    <p>Deleting...</p>;
-  }
-
   return data?.map((v) => (
-    <div className="votting__row" key={v.id} onClick={() => handlerDeleteVotte(v.id)}>
+    <div className="votting__row" key={v.id}>
       <div className="votting__time">
         {new Date(v.created_at).toLocaleTimeString().slice(0, -3)}
       </div>

@@ -12,6 +12,7 @@ import MainNavbar from "./MainNavbar";
 import Votting from "./Votting";
 import Breeds from "./Breeds";
 import Search from "./Search";
+import { Uploaded } from "./Uploaded";
 
 export const Main = () => {
   let navigate = useNavigate();
@@ -39,6 +40,7 @@ export const Main = () => {
             />
             <Route path="breeds" element={<Breeds handleInfo={handleInfo} />} />
             <Route path="search" element={<Search handleInfo={handleInfo} />} />
+            <Route path="uploaded" element={<Uploaded />} />
             <Route path="likes" element={<Likes />} />
             <Route path="favourite" element={<Favourite />} />
             <Route path="dislikes" element={<Dislikes />} />

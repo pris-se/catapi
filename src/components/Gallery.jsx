@@ -2,10 +2,13 @@ import React from "react";
 import { useAddFavouritesMutation, useGetImageQuery } from "../store/petApi";
 import { Loader } from "./Loader";
 import { Error } from "./Error";
+import { useSelector } from "react-redux";
 
 const Gallery = () => {
-  const { data, isLoading, isError } = useGetImageQuery({ limit: 20, id: "" });
+  const galleryParams = useSelector((state) => state.state.galleryFilter);
+  const { data, isFetching: isLoading, isError } = useGetImageQuery(galleryParams);
   const [addToFavourites] = useAddFavouritesMutation();
+
   const handleAddFavourites = (id) => {
     const body = JSON.stringify({
       image_id: id,
@@ -19,6 +22,11 @@ const Gallery = () => {
   if (isError) {
     return <Error />;
   }
+
+  if (data?.length === 0) {
+    return <p className="search-result">No item found</p>;
+  }
+
   const image = data?.map((img, idx) => (
     <div key={img.id}>
       <img src={img.url ? img.url : "./img/upload-bg.png"} alt={img.id} key={img.id} />

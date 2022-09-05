@@ -1,10 +1,12 @@
 import React from "react";
-import { useGetBreedQuery } from "../store/petApi";
+import { useGetImageQuery } from "../store/petApi";
 import { Loader } from "./Loader";
 import { Error } from "./Error";
+import { useSelector } from "react-redux";
 
 export default function Breeds({ handleInfo }) {
-  const { data, isLoading, isError } = useGetBreedQuery({ id: "?", limit: 5 });
+  const breedsParams = useSelector((state) => state.state.breedsFilter);
+  const { data, isFetching: isLoading, isError } = useGetImageQuery(breedsParams);
 
   if (isLoading) {
     return <Loader />;
@@ -13,17 +15,21 @@ export default function Breeds({ handleInfo }) {
     return <Error />;
   }
 
-  const image = data.map((breed) => (
+  if (data?.length === 0) {
+    return <p className="search-result">No item found</p>;
+  }
+
+  const image = data?.map((breed) => (
     <div key={breed.id}>
-      <img src={breed?.image?.url} alt={breed.name} key={breed.id} />
+      <img src={breed?.url} alt={breed?.breeds[0]?.name} key={breed?.id} />
       <button
         className="breed-name"
-        key={breed?.image?.id}
+        key={breed?.breeds[0]?.id}
         onClick={() => {
-          handleInfo(breed);
+          handleInfo(breed?.breeds[0]?.id);
         }}
       >
-        {breed.name}
+        {breed?.breeds[0]?.name}
       </button>
     </div>
   ));
