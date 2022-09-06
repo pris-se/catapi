@@ -8,9 +8,6 @@ export default function Search({ handleInfo }) {
   const search = useSelector((state) => state.state.q);
 
   const { data, isLoading, isError } = useSearchBreedsQuery(search);
-
-  console.log(data);
-
   if (isLoading) {
     return <Loader />;
   }

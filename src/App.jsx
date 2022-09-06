@@ -1,11 +1,13 @@
 import { React } from "react";
+import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { Main } from "./components/Main";
 import Menu from "./components/Menu";
 import { Upload } from "./components/Upload";
 const App = () => {
+  const isNightTheme = useSelector((state) => state.state.isNightTheme);
   return (
-    <>
+    <div className={isNightTheme ? "layout night-theme" : "layout light-theme"}>
       <div className="aside">
         <Menu />
       </div>
@@ -15,6 +17,7 @@ const App = () => {
             path="/"
             element={
               <div className="main hidden">
+                <img src="./img/girl-and-pet.png" alt="" />
                 <div className="main__container"></div>
               </div>
             }
@@ -23,7 +26,7 @@ const App = () => {
           <Route path="upload" element={<Upload />} />
         </Routes>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -8,7 +8,6 @@ import "./index.scss";
 import "./normalize.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
 root.render(
   <Provider store={store}>
     <BrowserRouter>

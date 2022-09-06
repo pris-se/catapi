@@ -14,7 +14,7 @@ export default function MainHeader() {
     if (searchFor.length > 0) {
       dispatch(search(input));
       setSearchFor("");
-      navigate("/search", { replace: true });
+      navigate("/search");
     } else return;
   };
 

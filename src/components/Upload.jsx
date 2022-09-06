@@ -48,6 +48,7 @@ export const Upload = () => {
               id="file"
               type="file"
               ref={input}
+              accept=".jpg,.png"
               onDrop={(e) => onLoadHandler(e)}
               onChange={(e) => onLoadHandler(e)}
             />

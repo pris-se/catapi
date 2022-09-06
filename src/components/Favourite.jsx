@@ -4,10 +4,10 @@ import { Error } from "./Error";
 import { useDeleteFavouritesMutation, useGetFavouritesQuery } from "../store/petApi";
 
 export default function Favourite() {
-  const { data, isLoading, isError } = useGetFavouritesQuery();
+  const { data, isLoading, isError, isSuccess } = useGetFavouritesQuery();
   const [deleteFavourite, { isLoading: isDeleting }] = useDeleteFavouritesMutation();
 
-  const handlerDeleteVotte = (id) => {
+  const handlerDeleteFavourite = (id) => {
     deleteFavourite(id);
   };
 
@@ -23,9 +23,19 @@ export default function Favourite() {
     return <div className="no-item">No item found</div>;
   }
 
-  const images = data?.map((l) => (
-    <div key={l?.id} onClick={() => handlerDeleteVotte(l?.id)}>
+  const images = data?.map((l, idx) => (
+    <div key={l?.id}>
       <img src={l?.image?.url} alt={l?.id} />
+      <button
+        className="fav-btn"
+        key={idx}
+        onClick={() => {
+          handlerDeleteFavourite(l.id);
+        }}
+      >
+        {isDeleting && <img className="small-loader" src="./img/loader.png" alt="loading" />}
+        {!isDeleting && <img src="./img/favourite-active.svg" alt="favourite" />}
+      </button>
     </div>
   ));
 

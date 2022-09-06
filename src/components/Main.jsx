@@ -18,7 +18,7 @@ export const Main = () => {
   let navigate = useNavigate();
   const handleInfo = (breed) => {
     window.localStorage.setItem("breedInfo", JSON.stringify(breed));
-    navigate("/breedsinfo", { replace: true });
+    navigate("/breedsinfo");
   };
 
   return (

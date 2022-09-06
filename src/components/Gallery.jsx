@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const Gallery = () => {
   const galleryParams = useSelector((state) => state.state.galleryFilter);
   const { data, isFetching: isLoading, isError } = useGetImageQuery(galleryParams);
-  const [addToFavourites] = useAddFavouritesMutation();
+  const [addToFavourites, { isSuccess, originalArgs }] = useAddFavouritesMutation();
 
   const handleAddFavourites = (id) => {
     const body = JSON.stringify({
@@ -29,7 +29,7 @@ const Gallery = () => {
 
   const image = data?.map((img, idx) => (
     <div key={img.id}>
-      <img src={img.url ? img.url : "./img/upload-bg.png"} alt={img.id} key={img.id} />
+      <img src={img.url} alt={img.id} key={img.id} />
       <button
         className="fav-btn"
         key={idx}
@@ -37,7 +37,14 @@ const Gallery = () => {
           handleAddFavourites(img.id);
         }}
       >
-        <img src="./img/favourite.svg" alt="favourite" />
+        <img
+          src={
+            isSuccess && JSON.parse(originalArgs).image_id === img.id
+              ? "./img/favourite-active.svg"
+              : "./img/favourite.svg"
+          }
+          alt="favourite"
+        />
       </button>
     </div>
   ));

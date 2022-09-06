@@ -6,15 +6,15 @@ import { Error } from "./Error";
 export default function Votting() {
   const { data, isFetching, isError, refetch } = useGetImageQuery({ limit: 1, breed_ids: "" });
   const [makeVote] = useMakeVoteMutation();
-  const [addToFavourites] = useAddFavouritesMutation();
+  const [addToFavourites, { isSuccess, originalArgs }] = useAddFavouritesMutation();
 
   const handleVote = (e) => {
     const body = JSON.stringify({
       image_id: data[0]?.id,
       value: e.currentTarget.value,
     });
-    makeVote(body);
     refetch();
+    makeVote(body);
   };
 
   const handleAddFavourites = () => {
@@ -22,7 +22,6 @@ export default function Votting() {
       image_id: data[0]?.id,
     });
     addToFavourites(body);
-    refetch();
   };
 
   return (
@@ -42,7 +41,14 @@ export default function Votting() {
               <img src="./img/like.svg" alt="like" />
             </button>
             <button className="votting__button votting__button--fav" onClick={handleAddFavourites}>
-              <img src="./img/favourite.svg" alt="favourite" />
+              <img
+                src={
+                  isSuccess && JSON.parse(originalArgs).image_id === data[0]?.id
+                    ? "./img/favourite-active.svg"
+                    : "./img/favourite.svg"
+                }
+                alt="favourite"
+              />
             </button>
             <button
               className="votting__button votting__button--dislike"
