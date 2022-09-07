@@ -274,13 +274,11 @@ $dark-other-secondary-bg-color: #282828;
 
   // ======= main styles =========
   .bg-image {
-    position: relative;
+    position: absolute;
     width: 775px;
     height: 900px;
-    img {
-      position: absolute;
-      right: 0;
-    }
+    top: 0;
+    right: 0;
   }
   .main {
     flex-shrink: 0;

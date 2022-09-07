@@ -18,7 +18,7 @@ const App = () => {
                 <Menu />
               </div>
               <div className="main hidden">
-                {/* <img src="./img/girl-and-pet.png" alt="" /> */}
+                <img className="bg-image" src="./img/girl-and-pet.png" alt="backgroung" />
                 <div className="main__container"></div>
               </div>
             </>
