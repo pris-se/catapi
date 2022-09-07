@@ -48,6 +48,10 @@ export default function BreedsInfo() {
     return <Error />;
   }
 
+  if (data?.length === 0) {
+    return <p className="no-item">Chose breed</p>;
+  }
+
   return (
     <div className="breeds">
       <div className="breeds__slider">

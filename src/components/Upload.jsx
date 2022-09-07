@@ -62,7 +62,7 @@ export const Upload = () => {
           />
         </div>
         <div className="upload__description">
-          {data && !isLoading && <h2 className="upload__info">{data?.url}</h2>}
+          {data && !isLoading && <p className="upload__info">{data?.url}</p>}
           {!data && !isError && <p className="upload__info">No file selected</p>}
           {isSuccess && !isLoading && !isError && (
             <button className="upload__button" onClick={inputResetHandler}>
