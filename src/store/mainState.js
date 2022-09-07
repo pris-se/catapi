@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const counterSlice = createSlice({
   name: "state",
   initialState: {
+    isMenuOpen: false,
     isNightTheme: JSON.parse(window.localStorage.getItem("isNightTheme")) || false,
     q: "",
     breedsFilter: {
@@ -33,10 +34,14 @@ export const counterSlice = createSlice({
     toggleTheme: (state) => {
       state.isNightTheme = !state.isNightTheme;
     },
+    toggleMenu: (state, action) => {
+      state.isMenuOpen = action.payload;
+    },
   },
   extraReducers: {},
 });
 
-export const { search, setGalleryFilter, setBreedsFilter, toggleTheme } = counterSlice.actions;
+export const { search, setGalleryFilter, setBreedsFilter, toggleTheme, toggleMenu } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

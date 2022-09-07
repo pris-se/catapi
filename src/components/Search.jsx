@@ -24,18 +24,15 @@ export default function Search({ handleInfo }) {
     );
   }
 
-  const image = data?.map((breed) => (
-    <div key={breed.id}>
-      <img src={breed?.url} alt={breed?.name} key={breed?.id} />
-      <button
-        className="breed-name"
-        key={breed?.image?.id}
-        onClick={() => {
-          handleInfo(breed?.id);
-        }}
-      >
-        {breed.name}
-      </button>
+  const results = data?.map((breed) => (
+    <div
+      className="search__row"
+      key={breed.id}
+      onClick={() => {
+        handleInfo(breed?.id);
+      }}
+    >
+      <span>{breed.name}</span> : {breed.temperament}
     </div>
   ));
 
@@ -44,7 +41,7 @@ export default function Search({ handleInfo }) {
       <p className="search-result">
         Search results for: <span>{search}</span>
       </p>
-      <div className="gallery">{image}</div>
+      <div className="search">{results}</div>
     </>
   );
 }

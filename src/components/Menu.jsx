@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import { toggleTheme } from "../store/mainState";
+import { toggleMenu, toggleTheme } from "../store/mainState";
 import { API_URL, CAT_API_URL, DOG_API_URL } from "../store/petApi";
 
 export default function Menu() {
@@ -61,6 +61,7 @@ export default function Menu() {
           <NavLink
             to="/votting"
             className={({ isActive }) => (isActive ? "menu__link active" : "menu__link")}
+            onClick={() => dispatch(toggleMenu(false))}
           >
             <img className="menu__link--col-1" src="/img/vote-table.png" alt="VOTING" />
             <h3 className="menu__link-name">VOTING</h3>
@@ -68,6 +69,7 @@ export default function Menu() {
           <NavLink
             to="/breeds"
             className={({ isActive }) => (isActive ? "menu__link active" : "menu__link")}
+            onClick={() => dispatch(toggleMenu(false))}
           >
             <img className="menu__link--col-2" src="./img/pet-breeds.png" alt="BREEDS" />
             <h3 className="menu__link-name" type="button">
@@ -77,6 +79,7 @@ export default function Menu() {
           <NavLink
             to="/gallery"
             className={({ isActive }) => (isActive ? "menu__link active" : "menu__link")}
+            onClick={() => dispatch(toggleMenu(false))}
           >
             <img className="menu__link--col-3" src="./img/images-search.png" alt="GALLERY" />
             <h3 className="menu__link-name" type="button">

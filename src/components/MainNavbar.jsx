@@ -60,20 +60,28 @@ export default function MainNavbar() {
               >
                 {limitOption}
               </select>
+              <button
+                className={breedsParams.order === "Ask" ? "main__select" : "main__select disable"}
+                value="Ask"
+                onClick={() => dispatch(setBreedsFilter({ order: "Ask" }))}
+              >
+                <img src="./img/sort-ask-active.svg" alt="asc" />
+              </button>
+              <button
+                className={breedsParams.order === "Desk" ? "main__select" : "main__select disable"}
+                onClick={() => dispatch(setBreedsFilter({ order: "Desk" }))}
+              >
+                <img src="./img/sort-dec-active.svg" alt="dec" />
+              </button>
             </>
           }
         />
         <Route
           path="gallery"
           element={
-            <>
-              <NavLink to="/uploaded" className="main__upload-btn">
-                <img src="./img/upload.svg" alt="upload" /> UPLOADED
-              </NavLink>
-              <NavLink to="/upload" className="main__upload-btn">
-                <img src="./img/upload.svg" alt="upload" /> UPLOAD
-              </NavLink>
-            </>
+            <NavLink to="/upload" className="main__upload-btn">
+              <img src="./img/upload.svg" alt="upload" /> UPLOAD
+            </NavLink>
           }
         />
       </Routes>
