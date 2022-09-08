@@ -4,7 +4,7 @@ import { Error } from "./Error";
 import { useDeleteImageMutation, useGetUploadsQuery } from "../store/petApi";
 
 export const Uploaded = () => {
-  const [deleteImage] = useDeleteImageMutation();
+  const [deleteImage, { isLoading: isDeleting }] = useDeleteImageMutation();
   const { data, isError, isLoading } = useGetUploadsQuery();
 
   const handlerDeleteImage = (id) => {
@@ -23,9 +23,24 @@ export const Uploaded = () => {
     return <div className="no-item">No item found</div>;
   }
 
-  const images = data?.map((l) => (
-    <div key={l?.id} onClick={() => handlerDeleteImage(l?.id)}>
-      <img src={l?.url} alt={l?.id} />
+  const images = data?.map((l, idx) => (
+    <div key={l?.id}>
+      <img
+        src={"./img/upload-bg.svg"}
+        alt={l?.id}
+        key={l?.id}
+        onLoad={(e) => (e.target.src = l?.url)}
+      />
+      <button
+        className="fav-btn"
+        key={idx}
+        onClick={() => {
+          handlerDeleteImage(l?.id);
+        }}
+      >
+        {isDeleting && <img className="small-loader" src="./img/loader.png" alt="loading" />}
+        {!isDeleting && <img src="./img/close.svg" alt="delete" />}
+      </button>
     </div>
   ));
 

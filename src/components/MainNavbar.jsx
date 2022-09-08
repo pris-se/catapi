@@ -84,6 +84,14 @@ export default function MainNavbar() {
             </NavLink>
           }
         />
+        <Route
+          path="uploaded"
+          element={
+            <NavLink to="/upload" className="main__upload-btn">
+              <img src="./img/upload.svg" alt="upload" /> UPLOAD
+            </NavLink>
+          }
+        />
       </Routes>
     </nav>
   );

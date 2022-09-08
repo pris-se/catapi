@@ -25,7 +25,12 @@ export default function Favourite() {
 
   const images = data?.map((l, idx) => (
     <div key={l?.id}>
-      <img src={l?.image?.url} alt={l?.id} />
+      <img
+        src={"./img/upload-bg.svg"}
+        alt={l?.id}
+        key={l?.id}
+        onLoad={(e) => (e.target.src = l?.image?.url)}
+      />
       <button
         className="fav-btn"
         key={idx}

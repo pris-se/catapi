@@ -24,9 +24,24 @@ export default function Likes() {
 
   const images = data
     ?.filter((l) => l.value === 1)
-    ?.map((l) => (
-      <div key={l?.id} onClick={() => handlerDeleteVotte(l?.id)}>
-        <img src={l?.image?.url} alt={l?.id} />
+    ?.map((l, idx) => (
+      <div key={l?.id}>
+        <img
+          src={"./img/upload-bg.svg"}
+          alt={l?.id}
+          key={l?.id}
+          onLoad={(e) => (e.target.src = l?.image?.url)}
+        />
+        <button
+          className="fav-btn"
+          key={idx}
+          onClick={() => {
+            handlerDeleteVotte(l?.id);
+          }}
+        >
+          {isDeleting && <img className="small-loader" src="./img/loader.png" alt="loading" />}
+          {!isDeleting && <img src="./img/close.svg" alt="delete" />}
+        </button>
       </div>
     ));
 

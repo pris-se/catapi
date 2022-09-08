@@ -21,7 +21,12 @@ export default function Breeds({ handleInfo }) {
 
   const image = data?.map((breed) => (
     <div key={breed.id}>
-      <img src={breed?.url} alt={breed?.breeds[0]?.name} key={breed?.id} />
+      <img
+        src={"./img/upload-bg.svg"}
+        alt={breed?.breeds[0]?.name}
+        key={breed?.id}
+        onLoad={(e) => (e.target.src = breed?.url)}
+      />
       <button
         className="breed-name"
         key={breed?.breeds[0]?.id}

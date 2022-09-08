@@ -29,7 +29,12 @@ const Gallery = () => {
 
   const image = data?.map((img, idx) => (
     <div key={img.id}>
-      <img src={img.url} alt={img.id} key={img.id} />
+      <img
+        src={"./img/upload-bg.svg"}
+        alt={img.id}
+        key={img.id}
+        onLoad={(e) => (e.target.src = img?.url)}
+      />
       <button
         className="fav-btn"
         key={idx}

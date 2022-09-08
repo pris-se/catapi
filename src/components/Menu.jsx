@@ -1,15 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toggleMenu, toggleTheme } from "../store/mainState";
 import { API_URL, CAT_API_URL, DOG_API_URL } from "../store/petApi";
 
 export default function Menu() {
   const isNightTheme = useSelector((state) => state.state.isNightTheme);
+  const isMenuOpen = useSelector((state) => state.state.isMenuOpen);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const changePetHandler = (e) => {
     localStorage.setItem("api-url", e);
+    navigate("/");
     window.location.reload();
   };
   const changeThemeHandler = (e) => {
@@ -20,12 +22,21 @@ export default function Menu() {
   return (
     <div className="menu">
       <header className="menu__header">
-        <div className="logo">
+        <div className={isMenuOpen ? "menu__logo hidden" : "menu__logo"}>
           <Link to="/">
             {!isNightTheme && <img src="./img/logo.svg" alt="PetsPaw" />}
             {isNightTheme && <img src="./img/logo-white.svg" alt="PetsPaw" />}
           </Link>
         </div>
+        {isMenuOpen && (
+          <button
+            className="main__icon"
+            id="menuToggle"
+            onClick={() => dispatch(toggleMenu(false))}
+          >
+            <img src="./img/close.svg" alt="menu" />
+          </button>
+        )}
         <div className="menu__switcher">
           <button
             className={API_URL === DOG_API_URL ? "menu__switch active" : "menu__switch"}

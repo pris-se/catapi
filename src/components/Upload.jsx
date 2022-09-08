@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUploadImageMutation } from "../store/petApi";
 import { Loader } from "./Loader";
+import { API_URL, DOG_API_URL } from "../store/petApi";
 
 export const Upload = () => {
   const [uploadImage, { data, isError, isLoading, isSuccess, reset }] = useUploadImageMutation();
@@ -30,7 +31,9 @@ export const Upload = () => {
       </button>
       <div className="upload__container">
         <header className="upload__heading">
-          <h1 className="upload__title">Upload a .jpg or .png Cat Image</h1>
+          <h1 className="upload__title">
+            Upload a .jpg or .png {API_URL === DOG_API_URL ? "Dog" : "Cat"} Image
+          </h1>
           <h2 className="upload__subtitle">
             Any uploads must comply with the <span>upload guidelines</span> or face deletion.
           </h2>
@@ -72,13 +75,13 @@ export const Upload = () => {
           {isSuccess && (
             <p className="upload__message">
               <img src="./img/success.svg" alt="success" />
-              Thanks for the Upload - Cat found!
+              Thanks for the Upload - {API_URL === DOG_API_URL ? "dog" : "cat"} found!
             </p>
           )}
           {isError && (
             <p className="upload__message">
               <img src="./img/error.svg" alt="error" />
-              No Cat found - try a different one!
+              No {API_URL === DOG_API_URL ? "dog" : "cat"} found - try a different one!
             </p>
           )}
         </div>
